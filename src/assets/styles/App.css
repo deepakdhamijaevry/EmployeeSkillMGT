@@ -1,0 +1,32 @@
+
+
+h1 {
+    color: #27aedb;
+    text-align: center;
+}.errorMsg {
+  color: #cc0000;
+  margin-bottom: 0px;
+  margin-left:12px;
+}
+
+.sucessMsg {
+  color: #6B8E23;
+  margin-bottom: 10px;
+}
+.button {
+  background-color: #00BFFF;
+  border-color: #3ac162;
+  font-weight: bold;
+  padding: 12px 15px;
+  color: #ffffff;
+}
+.hideSpinner
+{
+  display :none;
+}
+
+.toaster{
+  padding:20px;
+  margin-bottom: 10px;
+  width: 100%!important;
+}

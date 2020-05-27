@@ -1,0 +1,68 @@
+@import "./variable.scss";
+
+
+  .coverAll
+  {   
+    position: absolute !important;
+    left: 48% !important;
+    top: 50% !important;
+  }
+  .loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #364150;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    animation: spin 2s linear infinite;
+    position: absolute !important;
+    left: 50% !important;
+    top: 25% !important;
+    z-index: 99999;
+  }
+  .hidden{
+    display:none;
+}
+.show
+{
+  display:block;
+}
+.ajax_loader{
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
+    background:rgba(0,0,0,.5);
+    z-index: 9999;
+}
+ 
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .day-picker input{
+		width: 100%;
+		float: left;
+		height: 43px;
+		margin-bottom: 20px;
+		border: 1px solid $white15;
+}
+.hidden { display:none; }
+
+.toaster{
+  &::after{
+    color: #fff;
+    font: arial, sans-serif;
+    font-size: 18px;
+    position: absolute;
+    right: 5px;
+    top: 0px;
+    content: '×';
+    cursor: pointer;
+  }
+}
+.alignRight {
+text-align: right !important;
+padding-right: 93px;
+}
