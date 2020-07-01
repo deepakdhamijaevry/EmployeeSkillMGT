@@ -1,8 +1,9 @@
 import {
     ADD_UPDATE_EMPLOYEE_DETAIL_FAILED, ADD_UPDATE_EMPLOYEE_DETAIL_SUCCESSFULLY, ADD_UPDATE_EMPLOYEE_DETAIL_CLEAR,
-    ADD_UPDATE_EMPLOYEE_DETAIL_BEGIN, GET_EMPLOYEE_DETAIL_FAILED, GET_EMPLOYEE_DETAIL_SUCCESSFULLY, GET_EMPLOYEE_DETAIL_CLEAR
+    ADD_UPDATE_EMPLOYEE_DETAIL_BEGIN, GET_EMPLOYEE_DETAIL_FAILED, GET_EMPLOYEE_DETAIL_SUCCESSFULLY,
+    GET_EMPLOYEE_DETAIL_CLEAR, GET_EMPLOYEE_DETAIL_REQUEST
 } from './actionTypes';
-
+import { put } from 'redux-saga/effects';
 import { baseUrl } from './config';
 import requestMethod from '../helper/constant.js'
 import axios from 'axios';
@@ -63,34 +64,21 @@ export function updateEmployeeInformationRequest(id, employee) {
 /***** END - EMPLOYEE ADD UPDATE *****/
 
 /*****  EMPLOYEE DETAIL *****/
-export const getEmployeeFailed = (error) => {
+export const getEmployeeDetailRequest = (employeeId) => {
     return {
-        type: GET_EMPLOYEE_DETAIL_FAILED,
-        error
+        type: GET_EMPLOYEE_DETAIL_REQUEST,
+        employeeId
+    };
+};
+export function* getEmployeeDetail(employee) {
+    try {
+        const data = yield fetch(`${baseUrl}/${requestMethod.Employees}/${employee.employeeId}`)
+            .then(response => response.json());
+        yield put({ type: GET_EMPLOYEE_DETAIL_SUCCESSFULLY, employeeData: data });
+        yield put({ type: GET_EMPLOYEE_DETAIL_CLEAR });
+    } catch (err) {
+        yield put({ type: GET_EMPLOYEE_DETAIL_FAILED, error: err });
+        yield put({ type: GET_EMPLOYEE_DETAIL_CLEAR });
     }
 };
-export const getEmployeeSuccessfully = (data) => {
-    return {
-        type: GET_EMPLOYEE_DETAIL_SUCCESSFULLY,
-        employeeData: data,
-    };
-};
-export const getEmployeeClear = () => {
-    return {
-        type: GET_EMPLOYEE_DETAIL_CLEAR
-    };
-};
-export function getEmployeeDetailRequest(employeeId) {
-    return function (dispatch) {
-        return axios.get(`${baseUrl}/${requestMethod.Employees}/${employeeId}`)
-            .then(({ data }) => {
-                dispatch(getEmployeeSuccessfully(data));
-            }).then(() => {
-                dispatch(getEmployeeClear());
-            }).catch(err => {
-                dispatch(getEmployeeFailed(err));
-                dispatch(getEmployeeClear());
-            });
-    };
-}
 /*****  END - EMPLOYEE DETAIL *****/
