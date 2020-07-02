@@ -13,8 +13,8 @@ export const getEmployeesRequest = (pageNo, PageLimit, isAsc, column) => {
 };
 export function* getEmployees(requestData) {
     try {
-        const data = yield fetch(`${baseUrl}/${requestMethod.Employees}/${requestData.pageNo}/${requestData.PageLimit}/${requestData.isAsc}/${requestData.column}`)
-            .then(response => response.json());
+        const data = yield axios.get(`${baseUrl}/${requestMethod.Employees}/${requestData.pageNo}/${requestData.PageLimit}/${requestData.isAsc}/${requestData.column}`)
+            .then(response => response.data);
         yield put({ type: GET_EMPLOYEES_SUCCESSFULLY, employeeData: data });
     } catch (err) {
         yield put({ type: GET_EMPLOYEES_FAILED, error: err });
